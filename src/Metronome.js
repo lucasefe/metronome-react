@@ -5,6 +5,8 @@ import useSound from 'use-sound';
 import { PauseCircle } from 'react-feather';
 import { PlayCircle } from 'react-feather';
 import { useInterval } from 'usehooks-ts'
+import { useLocalStorage } from 'usehooks-ts'
+
 
 
 const defaultBPM = 80;
@@ -13,8 +15,8 @@ function Metronome() {
   const [playKick] = useSound(kick);
 
   const [isPlaying, setPlaying] = React.useState(false);
-  const [bpm, setBPM] = React.useState(defaultBPM);
   const [count, setCount] = React.useState(0);
+  const [bpm, setBPM] = useLocalStorage('bpm', defaultBPM)
 
   useInterval(() => {
     setCount(count + 1)
@@ -41,7 +43,7 @@ function Metronome() {
     <h4>{bpm} BPM</h4>
     <input
       type="range"
-      onChange={(e) => setBPM(e.target.value)}
+      onChange={(e) => setBPM(parseInt(e.target.value, 10))}
       value={bpm}
       min={60}
       max={200}
