@@ -2,8 +2,8 @@ import useSound from 'use-sound';
 import { useInterval } from 'usehooks-ts'
 import snare from './samples/snare.wav';
 import React from 'react';
-import { Play } from 'react-feather';
-import { Pause } from 'react-feather';
+import { PlayCircle } from 'react-feather';
+import { PauseCircle } from 'react-feather';
 
 
 
@@ -26,7 +26,7 @@ function Metronome() {
     isPlaying ? (1000 * 60 / bpm) : null
   )
 
-  const label = isPlaying ? <Pause /> : <Play />
+  const label = isPlaying ? <PauseCircle size="100" /> : <PlayCircle size="100" />;
 
   return <div>
     <h3>Metronome</h3>
@@ -38,8 +38,9 @@ function Metronome() {
       max={200}
       step={1}
     />
-    <button onClick={() => setPlaying(!isPlaying)}>{label}
-    </button>
+    <br />
+    <a onClick={() => setPlaying(!isPlaying)}>{label}
+    </a>
   </div>
 }
 
