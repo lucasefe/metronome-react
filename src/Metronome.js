@@ -1,16 +1,17 @@
-import useSound from 'use-sound';
-import { useInterval } from 'usehooks-ts'
+import React from 'react';
 import hihat from './samples/HH2.wav';
 import kick from './samples/BD2.wav';
-import React from 'react';
-import { PlayCircle } from 'react-feather';
+import useSound from 'use-sound';
 import { PauseCircle } from 'react-feather';
+import { PlayCircle } from 'react-feather';
+import { useInterval } from 'usehooks-ts'
 
 
 const defaultBPM = 80;
 function Metronome() {
   const [playHiHat] = useSound(hihat);
   const [playKick] = useSound(kick);
+
   const [isPlaying, setPlaying] = React.useState(false);
   const [bpm, setBPM] = React.useState(defaultBPM);
   const [count, setCount] = React.useState(0);
@@ -26,15 +27,14 @@ function Metronome() {
     isPlaying ? (1000 * 60 / bpm) : null
   )
 
-
   const handleClick = () => {
     if (isPlaying)
       setCount(0);
 
     setPlaying(!isPlaying)
   }
-
-  const aText = isPlaying ? <PauseCircle size="100" /> : <PlayCircle size="100" />;
+  const dimensions = { size: 80 }
+  const icon = isPlaying ? <PauseCircle {...dimensions} /> : <PlayCircle {...dimensions} />;
 
   return <div>
     <h3>Metronome</h3>
@@ -48,7 +48,7 @@ function Metronome() {
       step={1}
     />
     <br />
-    <a onClick={handleClick}>{aText}</a>
+    <div onClick={handleClick}>{icon}</div>
   </div >
 }
 
